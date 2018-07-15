@@ -1,7 +1,7 @@
 import React ,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import './style.css';
-
+import TodoLi from '../TodoLi';
 
 
 class TodoList extends Component {
@@ -22,9 +22,15 @@ handleSubmit=(e)=>{
     return;
   }
 
- this.setState(prevState=>({
-   items:prevState.items.concat({todo:this.state.todo}),
- }));
+const items ={
+  todo:this.state.todo,
+  id: Date.now()
+};
+
+ this.setState({
+   items:this.state.items.concat(items),
+   todo: ''
+ });
  console.log(this.state);
 }
 
@@ -32,12 +38,11 @@ handleSubmit=(e)=>{
     return (
       <div className="TodoListDiv">
 
-
         <form onSubmit={this.handleSubmit}>
           <input  id="new-todo"  onChange={this.handleChange}  value={this.state.todo}  />
           <button>Add #{this.state.items.length+1} </button>
         </form>
-
+        <TodoLi items={this.state.items} />
 
       </div>
     );
